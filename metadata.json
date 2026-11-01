@@ -1,0 +1,6 @@
+{
+  "name": "TKA Lingo",
+  "description": "Aplikasi latihan Tes Kemampuan Akademik (TKA) bergaya interaktif seperti Duolingo dengan bank soal lengkap, simulasi 30 soal 75 menit, analisis kelemahan berbasis IRT/bobot kesulitan, sesi remedial 10 soal, dan AI Tutor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

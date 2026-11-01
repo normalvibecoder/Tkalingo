@@ -1,0 +1,239 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Stores gamified TKA Lingo learner profile, XP, streak, hearts, gems, mastered units, and detected weak subtopics.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated user UID matching request.auth.uid."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Learner display name."
+        },
+        "xp": {
+          "type": "integer",
+          "description": "Total XP earned across TKA drills and simulations."
+        },
+        "streakDays": {
+          "type": "integer",
+          "description": "Current daily learning streak."
+        },
+        "hearts": {
+          "type": "integer",
+          "description": "Remaining energy hearts (0 to 5)."
+        },
+        "gems": {
+          "type": "integer",
+          "description": "Earned crystal gems for hints and heart refills."
+        },
+        "totalExamsCompleted": {
+          "type": "integer",
+          "description": "Number of full 30-question TKA simulations completed."
+        },
+        "totalRemedialsCompleted": {
+          "type": "integer",
+          "description": "Number of 10-question weakness remedial drills completed."
+        },
+        "weakSubtopics": {
+          "type": "array",
+          "description": "List of subtopics identified as weaknesses for remedial practice."
+        },
+        "masteredUnits": {
+          "type": "array",
+          "description": "List of completed Duolingo-style skill tree unit IDs."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when profile was created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when profile was last updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "xp",
+        "streakDays",
+        "hearts",
+        "gems",
+        "totalExamsCompleted",
+        "totalRemedialsCompleted",
+        "weakSubtopics",
+        "masteredUnits",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ExamAttempt": {
+      "title": "ExamAttempt",
+      "description": "Stores a completed TKA simulation (30 questions / 75 mins), unit quiz, or 10-question weakness remedial session with weighted IRT score and subtopic diagnostics.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated user UID matching request.auth.uid."
+        },
+        "subjectId": {
+          "type": "string",
+          "description": "Identifier of the TKA subject (e.g. mat_wajib, fisika, biosains)."
+        },
+        "subjectName": {
+          "type": "string",
+          "description": "Display name of the TKA subject."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["SIMULASI_TKA", "UNIT_PATH", "REMEDIAL_DRILL"],
+          "description": "Practice or exam mode."
+        },
+        "irtScore": {
+          "type": "integer",
+          "description": "Weighted IRT TKA score (0 to 1000) based on question difficulty weights."
+        },
+        "correctCount": {
+          "type": "integer",
+          "description": "Number of questions answered completely or partially right."
+        },
+        "totalQuestions": {
+          "type": "integer",
+          "description": "Total number of questions in the session."
+        },
+        "durationSeconds": {
+          "type": "integer",
+          "description": "Time spent in seconds."
+        },
+        "weakSubtopics": {
+          "type": "array",
+          "description": "Subtopics where the user scored below mastery threshold in this session."
+        },
+        "strongSubtopics": {
+          "type": "array",
+          "description": "Subtopics where the user demonstrated high mastery in this session."
+        },
+        "aiAnalysisSummary": {
+          "type": "string",
+          "description": "AI diagnostic feedback or study plan summary."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when attempt was recorded (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when attempt was updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "subjectId",
+        "subjectName",
+        "mode",
+        "irtScore",
+        "correctCount",
+        "totalQuestions",
+        "durationSeconds",
+        "weakSubtopics",
+        "strongSubtopics",
+        "aiAnalysisSummary",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SavedCustomQuestion": {
+      "title": "SavedCustomQuestion",
+      "description": "Stores AI-generated or custom remedial TKA questions for a user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated user UID matching request.auth.uid."
+        },
+        "subjectId": {
+          "type": "string",
+          "description": "Subject identifier."
+        },
+        "subtopic": {
+          "type": "string",
+          "description": "Specific subtopic (e.g. Logaritma, Stoikiometri, Bioteknologi)."
+        },
+        "difficulty": {
+          "type": "integer",
+          "description": "Difficulty tier (1 = Mudah, 2 = Sedang, 3 = Sulit/HOTS)."
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["SINGLE_CHOICE", "MCMA", "TRUE_FALSE_MATRIX"],
+          "description": "TKA question format."
+        },
+        "stem": {
+          "type": "string",
+          "description": "Question stem text."
+        },
+        "options": {
+          "type": "array",
+          "description": "Choice options or statements."
+        },
+        "correctAnswerCode": {
+          "type": "string",
+          "description": "Encoded correct answer (e.g. '0', '0,2', or 'B,S,B')."
+        },
+        "explanation": {
+          "type": "string",
+          "description": "Step-by-step pedagogical explanation."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "subjectId",
+        "subtopic",
+        "difficulty",
+        "questionType",
+        "stem",
+        "options",
+        "correctAnswerCode",
+        "explanation",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Per-user gamified TKA Lingo profile document."
+    },
+    "/users/{userId}/attempts/{attemptId}": {
+      "schema": {
+        "$ref": "#/entities/ExamAttempt"
+      },
+      "description": "Per-user history of TKA exam simulations, unit quizzes, and remedial drills."
+    },
+    "/users/{userId}/custom_questions/{questionId}": {
+      "schema": {
+        "$ref": "#/entities/SavedCustomQuestion"
+      },
+      "description": "Per-user saved AI remedial questions."
+    }
+  }
+}
