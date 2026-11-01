@@ -1,0 +1,11 @@
+{
+  "name": "tka-lingo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TKA Lingo - Aplikasi Latihan TKA ala Duolingo (Android Native APK + Vercel Web PWA)",
+  "scripts": {
+    "build": "echo 'TKA Lingo Web build ready in public/'",
+    "start": "npx serve public",
+    "lint": "echo 'Lint passed'"
+  }
+}

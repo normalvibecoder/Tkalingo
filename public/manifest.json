@@ -1,0 +1,9 @@
+{
+  "name": "TKA Lingo - Belajar TKA Seru Ala Game",
+  "short_name": "TKA Lingo",
+  "description": "Aplikasi latihan Tes Kemampuan Akademik (TKA) bergaya Duolingo dengan 8 Mapel, 864 Soal, Simulasi 30 Soal 75 Menit, Penilaian Bobot IRT, dan Sesi Remedial 10 Soal Kelemahan.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F9F4",
+  "theme_color": "#58CC02"
+}

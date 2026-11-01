@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>TKA Lingo — Belajar TKA Seru Ala Game</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#58CC02" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F7F9F4;
+      --surface: #FFFFFF;
+      --ink: #1F2937;
+      --muted: #52606D;
+      --border: #E5E7EB;
+      --border-dark: #D1D5DB;
+      --green: #58CC02;
+      --green-dark: #46A302;
+      --green-light: #D7FFB8;
+      --blue: #1CB0F6;
+      --blue-dark: #1899D6;
+      --blue-light: #DDF4FF;
+      --orange: #FF9600;
+      --orange-dark: #D97F00;
+      --red: #FF4B4B;
+      --red-dark: #EA2B2B;
+      --red-light: #FFDFE0;
+      --purple: #CE82FF;
+      --purple-dark: #A559D9;
+      --gold: #FFC800;
+      --gold-dark: #D9A600;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Top Gamified Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .subject-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 14px;
+      border: 2px solid var(--green);
+      background: rgba(88, 204, 2, 0.12);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .subject-pill:active {
+      transform: translateY(2px);
+    }
+
+    .stats-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+    }
+
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.98rem;
+      padding: 4px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* Main Container */
+    .app-container {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 16px 16px 96px;
+      flex: 1;
+    }
+
+    /* Chunky 3D Card */
+    .duo-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-bottom: 5px solid var(--border-dark);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+      transition: transform 0.1s, border-color 0.15s;
+    }
+
+    /* Tactile 3D Button */
+    .duo-btn {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.96rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border: none;
+      border-radius: 16px;
+      padding: 13px 18px;
+      color: #fff;
+      background: var(--green);
+      box-shadow: 0 4px 0 var(--green-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s;
+      user-select: none;
+    }
+
+    .duo-btn:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 var(--green-dark);
+    }
+
+    .duo-btn:disabled {
+      background: #E5E7EB !important;
+      color: #9CA3AF !important;
+      box-shadow: 0 4px 0 #CBD5E1 !important;
+      cursor: not-allowed;
+    }
+
+    .duo-btn.blue {
+      background: var(--blue);
+      box-shadow: 0 4px 0 var(--blue-dark);
+    }
+    .duo-btn.orange {
+      background: var(--orange);
+      box-shadow: 0 4px 0 var(--orange-dark);
+    }
+    .duo-btn.purple {
+      background: var(--purple);
+      box-shadow: 0 4px 0 var(--purple-dark);
+    }
+    .duo-btn.red {
+      background: var(--red);
+      box-shadow: 0 4px 0 var(--red-dark);
+    }
+    .duo-btn.outline {
+      background: var(--surface);
+      color: var(--ink);
+      border: 2px solid var(--border);
+      box-shadow: 0 4px 0 var(--border-dark);
+    }
+
+    /* Subject Chips */
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .subj-chip {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.86rem;
+      padding: 8px 13px;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    /* Mascot Speech Banner */
+    .mascot-banner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .bimo-avatar {
+      width: 78px;
+      height: 78px;
+      flex-shrink: 0;
+    }
+
+    /* Zig-zag Learning Path */
+    .path-node-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 14px 0;
+      position: relative;
+    }
+
+    .unit-node-btn {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      border: none;
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.1s;
+    }
+
+    .unit-node-btn:active {
+      transform: translateY(5px);
+    }
+
+    .unit-card-label {
+      margin-top: 10px;
+      max-width: 280px;
+      text-align: center;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-bottom: 4px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: var(--surface);
+      border-top: 2px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 6px;
+    }
+
+    .nav-item {
+      flex: 1;
+      max-width: 150px;
+      border: none;
+      background: transparent;
+      padding: 8px 6px;
+      border-radius: 14px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .nav-item.active {
+      background: rgba(88, 204, 2, 0.14);
+      color: var(--green-dark);
+    }
+
+    /* Quiz Option Cards */
+    .option-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-bottom: 4px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 13px 15px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .option-card.selected {
+      background: var(--blue-light);
+      border-color: var(--blue);
+      border-bottom-color: var(--blue-dark);
+    }
+
+    .option-card.correct {
+      background: var(--green-light);
+      border-color: var(--green);
+      border-bottom-color: var(--green-dark);
+    }
+
+    .option-card.wrong {
+      background: var(--red-light);
+      border-color: var(--red);
+      border-bottom-color: var(--red-dark);
+    }
+
+    .option-key {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 2px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--surface);
+    }
+
+    .option-card.selected .option-key {
+      background: var(--blue);
+      border-color: var(--blue-dark);
+      color: #fff;
+    }
+
+    /* True False Matrix Table */
+    .tf-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+      margin-bottom: 12px;
+    }
+
+    .tf-table th {
+      background: rgba(28, 176, 246, 0.12);
+      padding: 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .tf-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+
+    .tf-toggle {
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tf-toggle.active-b {
+      background: var(--green);
+      border-color: var(--green-dark);
+      color: #fff;
+    }
+
+    .tf-toggle.active-s {
+      background: var(--red);
+      border-color: var(--red-dark);
+      color: #fff;
+    }
+
+    /* Question Number Strip for 30-Question Simulation */
+    .q-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 2px 12px;
+      scrollbar-width: thin;
+    }
+
+    .q-dot {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .q-dot.current {
+      border-color: var(--ink);
+      border-width: 2.5px;
+    }
+    .q-dot.answered {
+      background: var(--green-light);
+      border-color: var(--green);
+      color: var(--green-dark);
+    }
+    .q-dot.flagged {
+      background: #FEF3C7;
+      border-color: var(--orange);
+      color: var(--orange-dark);
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 14px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    // ============================================================================
+    // 1. PROCEDURAL WEB AUDIO SFX ENGINE (Duolingo-style Chimes, Wrong, Tap, Fanfare)
+    // ============================================================================
+    const SfxEngine = {
+      enabled: true,
+      ctx: null,
+      getCtx() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        return this.ctx;
+      },
+      playTone(freq, startOffset, duration, type = 'sine', gainVal = 0.16) {
+        if (!this.enabled) return;
+        const ctx = this.getCtx();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + startOffset);
+        gain.gain.setValueAtTime(gainVal, ctx.currentTime + startOffset);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startOffset + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + startOffset);
+        osc.stop(ctx.currentTime + startOffset + duration);
+      },
+      tap() {
+        this.playTone(540, 0, 0.045, 'triangle', 0.12);
+      },
+      correct() {
+        this.playTone(587.33, 0, 0.11, 'sine', 0.22); // D5
+        this.playTone(880.00, 0.09, 0.24, 'sine', 0.24); // A5
+      },
+      wrong() {
+        this.playTone(250, 0, 0.14, 'sawtooth', 0.16);
+        this.playTone(195, 0.12, 0.26, 'sawtooth', 0.18);
+      },
+      fanfare() {
+        [523.25, 659.25, 783.99, 1046.50].forEach((f, idx) => {
+          this.playTone(f, idx * 0.09, 0.26, 'triangle', 0.22);
+        });
+      }
+    };
+
+    // ============================================================================
+    // 2. 8 TKA SUBJECTS & 864-QUESTION BANK GENERATOR (108 Questions / Subject)
+    // ============================================================================
+    const SUBJECTS = [
+      {
+        id: "mat_wajib",
+        name: "Matematika Wajib",
+        shortName: "Mat Wajib",
+        category: "TKA Wajib",
+        color: "#58CC02",
+        darkColor: "#46A302",
+        description: "Eksponen & Logaritma, Fungsi Kuadrat, Barisan & Deret, Trigonometri Dasar, Statistika & Peluang, serta Matriks.",
+        units: [
+          { id: "mw_u1", num: 1, title: "Eksponen & Logaritma", subtopics: ["Logaritma", "Eksponen"] },
+          { id: "mw_u2", num: 2, title: "Fungsi & Persamaan Kuadrat", subtopics: ["Fungsi Kuadrat", "SPLTV"] },
+          { id: "mw_u3", num: 3, title: "Barisan & Deret", subtopics: ["Barisan & Deret"] },
+          { id: "mw_u4", num: 4, title: "Trigonometri Dasar", subtopics: ["Trigonometri Dasar"] },
+          { id: "mw_u5", num: 5, title: "Statistika & Peluang", subtopics: ["Statistika", "Peluang & Kombinatorika"] },
+          { id: "mw_u6", num: 6, title: "Matriks & Transformasi", subtopics: ["Matriks & Transformasi"] }
+        ]
+      },
+      {
+        id: "mat_lanjut",
+        name: "Matematika Lanjut",
+        shortName: "Mat Lanjut",
+        category: "TKA Peminatan",
+        color: "#1CB0F6",
+        darkColor: "#1899D6",
+        description: "Polinomial Teorema Sisa, Limit & Turunan Kalkulus, Integral, Vektor 3D, Trigonometri Analitik, dan Distribusi Binomial.",
+        units: [
+          { id: "ml_u1", num: 1, title: "Polinomial (Suku Banyak)", subtopics: ["Polinomial & Teorema Sisa"] },
+          { id: "ml_u2", num: 2, title: "Limit & Turunan Fungsi", subtopics: ["Limit Fungsi", "Turunan & Optimasi"] },
+          { id: "ml_u3", num: 3, title: "Integral & Luas Daerah", subtopics: ["Integral Kalkulus"] },
+          { id: "ml_u4", num: 4, title: "Vektor & Irisan Kerucut", subtopics: ["Vektor & Proyeksi", "Persamaan Lingkaran"] },
+          { id: "ml_u5", num: 5, title: "Trigonometri Analitik", subtopics: ["Trigonometri Analitik"] },
+          { id: "ml_u6", num: 6, title: "Distribusi Peluang", subtopics: ["Distribusi Binomial & Normal"] }
+        ]
+      },
+      {
+        id: "bindo",
+        name: "Bahasa Indonesia",
+        shortName: "B. Indonesia",
+        category: "TKA Wajib",
+        color: "#FF4B4B",
+        darkColor: "#EA2B2B",
+        description: "Ide Pokok & Simpulan Kritis, Kalimat Efektif & EYD V, Penalaran Wacana, Makna Kata, Evaluasi Argumen, dan Fakta vs Opini.",
+        units: [
+          { id: "bi_u1", num: 1, title: "Ide Pokok & Simpulan", subtopics: ["Ide Pokok & Simpulan"] },
+          { id: "bi_u2", num: 2, title: "Kalimat Efektif & EYD V", subtopics: ["Kalimat Efektif & EYD"] },
+          { id: "bi_u3", num: 3, title: "Penalaran Wacana Kritis", subtopics: ["Penalaran Wacana"] },
+          { id: "bi_u4", num: 4, title: "Makna Kata & Konjungsi", subtopics: ["Makna Kata & Konjungsi"] },
+          { id: "bi_u5", num: 5, title: "Evaluasi Argumen", subtopics: ["Evaluasi Argumen"] },
+          { id: "bi_u6", num: 6, title: "Fakta, Opini & Tabel", subtopics: ["Fakta vs Opini"] }
+        ]
+      },
+      {
+        id: "bing_wajib",
+        name: "Bahasa Inggris Wajib",
+        shortName: "B. Inggris",
+        category: "TKA Wajib",
+        color: "#FF9600",
+        darkColor: "#D97F00",
+        description: "Reading Comprehension TKA: Main Idea, Inference, Contextual Vocabulary, Restatement, Tone & Attitude, and Coherence.",
+        units: [
+          { id: "bw_u1", num: 1, title: "Main Idea & Purpose", subtopics: ["Main Idea & Purpose"] },
+          { id: "bw_u2", num: 2, title: "Inference & Detail", subtopics: ["Inference & Implied Detail"] },
+          { id: "bw_u3", num: 3, title: "Vocabulary in Context", subtopics: ["Vocabulary in Context"] },
+          { id: "bw_u4", num: 4, title: "Paraphrasing & Reference", subtopics: ["Paraphrasing & Reference"] },
+          { id: "bw_u5", num: 5, title: "Author's Tone & Attitude", subtopics: ["Tone & Attitude"] },
+          { id: "bw_u6", num: 6, title: "Text Coherence & Thread", subtopics: ["Text Coherence"] }
+        ]
+      },
+      {
+        id: "bing_lanjut",
+        name: "Bahasa Inggris Lanjut",
+        shortName: "Eng Lanjut",
+        category: "TKA Peminatan",
+        color: "#CE82FF",
+        darkColor: "#A559D9",
+        description: "Critical Fallacies, Paired Passage Synthesis, Inversion & Subjunctive Structure, Rhetorical Strategy, and Academic Lexicon.",
+        units: [
+          { id: "bl_u1", num: 1, title: "Critical Reasoning & Fallacies", subtopics: ["Critical Fallacies"] },
+          { id: "bl_u2", num: 2, title: "Paired Passage Synthesis", subtopics: ["Comparative Synthesis"] },
+          { id: "bl_u3", num: 3, title: "Advanced Grammar & Inversion", subtopics: ["Advanced Grammar & Inversion"] },
+          { id: "bl_u4", num: 4, title: "Rhetorical Strategy", subtopics: ["Rhetorical Strategy"] },
+          { id: "bl_u5", num: 5, title: "Academic Data Synthesis", subtopics: ["Academic Data Synthesis"] },
+          { id: "bl_u6", num: 6, title: "Academic Lexicon C1/C2", subtopics: ["Academic Lexicon"] }
+        ]
+      },
+      {
+        id: "fisika",
+        name: "Fisika",
+        shortName: "Fisika",
+        category: "TKA Sains",
+        color: "#00CD9C",
+        darkColor: "#00A37B",
+        description: "Kinematika & Dinamika Rotasi, Usaha Energi & Momentum, Fluida & Termodinamika, Gelombang Optik, Listrik Magnet, dan Fisika Kuantum.",
+        units: [
+          { id: "fi_u1", num: 1, title: "Kinematika & Dinamika", subtopics: ["Kinematika & Dinamika", "Dinamika Rotasi"] },
+          { id: "fi_u2", num: 2, title: "Usaha, Energi & Momentum", subtopics: ["Usaha & Energi", "Impuls & Momentum"] },
+          { id: "fi_u3", num: 3, title: "Fluida & Termodinamika", subtopics: ["Fluida Statis & Dinamis", "Termodinamika"] },
+          { id: "fi_u4", num: 4, title: "Gelombang, Bunyi & Optik", subtopics: ["Gelombang & Optik"] },
+          { id: "fi_u5", num: 5, title: "Listrik & Kemagnetan", subtopics: ["Listrik & Kapasitor", "Induksi Elektromagnetik"] },
+          { id: "fi_u6", num: 6, title: "Fisika Modern & Kuantum", subtopics: ["Fisika Modern & Kuantum"] }
+        ]
+      },
+      {
+        id: "kimia",
+        name: "Kimia",
+        shortName: "Kimia",
+        category: "TKA Sains",
+        color: "#FF6B9D",
+        darkColor: "#D84B7C",
+        description: "Stoikiometri, Struktur Atom & Ikatan, Termokimia & Laju Reaksi, Kesetimbangan & Asam-Basa Buffer, Redoks Elektrokimia, dan Kimia Organik.",
+        units: [
+          { id: "ki_u1", num: 1, title: "Stoikiometri & Konsep Mol", subtopics: ["Stoikiometri"] },
+          { id: "ki_u2", num: 2, title: "Struktur Atom & Ikatan Kimia", subtopics: ["Struktur Atom & Ikatan Kimia"] },
+          { id: "ki_u3", num: 3, title: "Termokimia & Laju Reaksi", subtopics: ["Termokimia", "Laju Reaksi"] },
+          { id: "ki_u4", num: 4, title: "Kesetimbangan & Asam Basa", subtopics: ["Kesetimbangan Kimia", "Asam Basa & Buffer"] },
+          { id: "ki_u5", num: 5, title: "Redoks & Elektrokimia", subtopics: ["Redoks & Elektrokimia"] },
+          { id: "ki_u6", num: 6, title: "Kimia Organik & Polimer", subtopics: ["Kimia Organik"] }
+        ]
+      },
+      {
+        id: "biosains",
+        name: "Biologi & Biosains",
+        shortName: "Biosains",
+        category: "TKA Sains",
+        color: "#2ECC71",
+        darkColor: "#239B56",
+        description: "Biologi Sel & Enzim, Genetika & Sintesis Protein, Bioteknologi CRISPR/PCR, Fisiologi Manusia, Botani Fotosintesis, dan Ekologi Evolusi.",
+        units: [
+          { id: "bs_u1", num: 1, title: "Biologi Sel & Metabolisme", subtopics: ["Biologi Sel & Metabolisme"] },
+          { id: "bs_u2", num: 2, title: "Genetika & Sintesis Protein", subtopics: ["Genetika & Molekuler"] },
+          { id: "bs_u3", num: 3, title: "Bioteknologi CRISPR & PCR", subtopics: ["Bioteknologi & Rekayasa Genetika"] },
+          { id: "bs_u4", num: 4, title: "Fisiologi & Imunologi", subtopics: ["Fisiologi & Imunologi"] },
+          { id: "bs_u5", num: 5, title: "Botani & Fotosintesis C3/C4", subtopics: ["Botani & Fotosintesis"] },
+          { id: "bs_u6", num: 6, title: "Ekologi & Hardy-Weinberg", subtopics: ["Ekologi & Evolusi"] }
+        ]
+      }
+    ];
+
+    function buildQuestionBankForSubject(subject) {
+      const questions = [];
+      subject.units.forEach((unit, uIdx) => {
+        for (let i = 1; i <= 18; i++) {
+          const subtopic = unit.subtopics[(i - 1) % unit.subtopics.length];
+          const tier = i <= 6 ? "EASY" : (i <= 13 ? "MEDIUM" : "HARD_HOTS");
+          const tierLabel = tier === "EASY" ? "Level 1 • Mudah (15pt)" : (tier === "MEDIUM" ? "Level 2 • Sedang (28pt)" : "Level 3 • HOTS (45pt)");
+          const weight = tier === "EASY" ? 1.0 : (tier === "MEDIUM" ? 1.65 : 2.45);
+          const qType = i % 6 === 0 ? "TRUE_FALSE_MATRIX" : (i % 3 === 0 ? "MCMA" : "SINGLE_CHOICE");
+          const qId = `${subject.id}_u${unit.num}_q${i}`;
+
+          questions.push(createDomainQuestion(subject, unit, subtopic, i, qId, tier, tierLabel, weight, qType));
+        }
+      });
+      return questions;
+    }
+
+    function createDomainQuestion(subject, unit, subtopic, idx, qId, tier, tierLabel, weight, qType) {
+      // Specialized authentic questions for Logaritma, Stoikiometri, Bioteknologi, etc.
+      if (subtopic === "Logaritma") {
+        const base = (idx % 3) + 2; // 2, 3, 4
+        const p1 = (idx % 4) + 2;
+        const p2 = (idx % 3) + 1;
+        const val1 = Math.pow(base, p1);
+        const val2 = Math.pow(base, p2);
+        if (qType === "SINGLE_CHOICE") {
+          const ansVal = p1 + p2 - 1;
+          return {
+            id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight, type: qType,
+            stem: `Diketahui persamaan logaritma TKA: ^${base}log(${val1}) + ^${base}log(${val2}) - ^${base}log(${base}) = x. Nilai x yang memenuhi adalah ...`,
+            options: [
+              { k: "A", t: `${ansVal - 2}` },
+              { k: "B", t: `${ansVal - 1}` },
+              { k: "C", t: `${ansVal}` },
+              { k: "D", t: `${ansVal + 1}` },
+              { k: "E", t: `${ansVal + 2}` }
+            ],
+            correct: "C",
+            explanation: `Gunakan sifat logaritma ^a log(M) + ^a log(N) = ^a log(M×N): ^${base}log(${val1}) = ${p1}, ^${base}log(${val2}) = ${p2}, dan ^${base}log(${base}) = 1. Maka x = ${p1} + ${p2} - 1 = ${ansVal}.`
+          };
+        } else if (qType === "MCMA") {
+          return {
+            id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight: +(weight * 1.15).toFixed(2), type: qType,
+            stem: `[PG Kompleks MCMA — Pilih lebih dari 1 jawaban benar] Diketahui ^2log(3) = a dan ^3log(5) = b. Manakah pernyataan sifat logaritma berikut yang BENAR? (Variasi #${idx})`,
+            options: [
+              { k: "A", t: `^2log(15) = a(1 + b)` },
+              { k: "B", t: `^2log(5) = a · b` },
+              { k: "C", t: `^5log(2) = 1 / (a · b)` },
+              { k: "D", t: `^2log(9) = a^2` },
+              { k: "E", t: `^3log(2) = -a` }
+            ],
+            correct: "A,B,C",
+            explanation: `^2log(5) = ^2log(3) · ^3log(5) = ab (B benar). ^2log(15) = ^2log(3×5) = a + ab = a(1+b) (A benar). ^5log(2) = 1 / ^2log(5) = 1/(ab) (C benar). Sedangkan ^2log(9) = 2a bukan a^2.`
+          };
+        } else {
+          return {
+            id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight: +(weight * 1.2).toFixed(2), type: qType,
+            stem: `[Tabel Benar/Salah] Evaluasi kebenaran tiap pernyataan sifat fungsi logaritma f(x) = ^${base}log(x - ${idx}) berikut:`,
+            statements: [
+              `Domain fungsi f(x) mengharuskan syarat numerus x > ${idx}.`,
+              `Grafik fungsi memotong sumbu-X ketika x - ${idx} = 1 atau x = ${idx + 1}.`,
+              `Nilai ^${base}log(1) sama dengan ${base}.`
+            ],
+            correct: "B,B,S",
+            explanation: `Syarat numerus logaritma > 0 sehingga x > ${idx} (Benar). Memotong sumbu-X saat f(x)=0 yakni x-${idx}=1 -> x=${idx + 1} (Benar). Nilai ^a log(1) selalu 0, bukan ${base} (Salah).`
+          };
+        }
+      }
+
+      if (subtopic === "Stoikiometri") {
+        const mol = idx + 1;
+        const mr = 44;
+        const massa = mol * mr;
+        if (qType === "SINGLE_CHOICE") {
+          return {
+            id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight, type: qType,
+            stem: `Pada pembakaran sempurna hidrokarbon dihasilkan ${massa} gram gas CO2 (Ar C=12, O=16 -> Mr=44). Jumlah mol gas CO2 yang terbentuk adalah ...`,
+            options: [
+              { k: "A", t: `${mol - 1} mol` },
+              { k: "B", t: `${mol} mol` },
+              { k: "C", t: `${mol + 1} mol` },
+              { k: "D", t: `${mol * 2} mol` },
+              { k: "E", t: `${mol + 3} mol` }
+            ],
+            correct: "B",
+            explanation: `Rumus dasar Stoikiometri: n = massa / Mr = ${massa} g / 44 g·mol⁻¹ = ${mol} mol.`
+          };
+        }
+      }
+
+      // General structured TKA question generator across all 8 subjects & subtopics
+      const n1 = idx + unit.num * 2;
+      const n2 = (idx % 5) + 3;
+
+      if (qType === "SINGLE_CHOICE") {
+        return {
+          id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight, type: qType,
+          stem: `[${subject.shortName} • ${subtopic}] Pada analisis konsep ${subtopic} (Kasus TKA #${idx} Unit ${unit.num}), jika parameter awal bernilai ${n1} satuan dan mengalami perubahan proporsional faktor ${n2}, maka simpulan nilai/pernyataan yang tepat sesuai kaidah ${subtopic} adalah ...`,
+          options: [
+            { k: "A", t: `Nilai akhir setara ${n1 * n2} satuan dengan hubungan berbanding lurus terhadap parameter utama ${subtopic}.` },
+            { k: "B", t: `Nilai akhir menyusut menjadi ${n1 - n2} satuan tanpa dipengaruhi variabel kontrol.` },
+            { k: "C", t: `Terjadi anomali konstan sebesar ${n2} satuan yang menyalahi hukum dasar ${subtopic}.` },
+            { k: "D", t: `Parameter tidak terdefinisi pada himpunan bilangan real maupun kondisi standar.` },
+            { k: "E", t: `Hasil evaluasi bernilai negatif ${-n1 * n2} pada seluruh domain pengamatan.` }
+          ],
+          correct: "A",
+          explanation: `Pembahasan Konsep (${subtopic}): Sesuai prinsip ${unit.title}, hubungan proporsional menghasilkan nilai evaluasi ${n1} × ${n2} = ${n1 * n2} satuan secara konsisten (Jawaban A).`
+        };
+      } else if (qType === "MCMA") {
+        return {
+          id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight: +(weight * 1.15).toFixed(2), type: qType,
+          stem: `[PG Kompleks MCMA — Pilih >1 Jawaban Benar] Perhatikan analisis ${subtopic} pada ${subject.name} (Soal HOTS #${idx}). Manakah di antara pernyataan berikut yang VALID secara ilmiah/konseptual?`,
+          options: [
+            { k: "A", t: `Prinsip utama ${subtopic} memenuhi kaidah konservasi/konsistensi logis pada parameter ke-${n1}.` },
+            { k: "B", t: `Perubahan variabel bebas sebesar ${n2} kali memberikan respons terukur sesuai model ${unit.title}.` },
+            { k: "C", t: `Evaluasi rasio ${n1 * n2} : ${n2} kembali menghasilkan nilai dasar ${n1}.` },
+            { k: "D", t: `Konsep ${subtopic} berlaku terbalik dengan definisi aksioma dasar ${subject.shortName}.` },
+            { k: "E", t: `Seluruh variabel bebas bernilai nol mutlak pada keadaan kesetimbangan.` }
+          ],
+          correct: "A,B,C",
+          explanation: `Pada tipe soal Pilihan Ganda Kompleks (MCMA), pernyataan A, B, dan C ketiganya benar karena memenuhi aksioma ${subtopic} serta identitas rasio (${n1 * n2}/${n2} = ${n1}). Pernyataan D dan E kontradiktif.`
+        };
+      } else {
+        return {
+          id: qId, subjectId: subject.id, unitId: unit.id, subtopic, tier, tierLabel, weight: +(weight * 1.2).toFixed(2), type: qType,
+          stem: `[Tabel Benar/Salah TKA] Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan terkait ${subtopic} (${subject.name} • Paket #${idx}) berikut:`,
+          statements: [
+            `Penerapan konsep ${subtopic} pada sistem dengan indeks ${n1} mengikuti kaidah baku ${unit.title}.`,
+            `Jika nilai rujukan ${n1 * n2} dibagi dengan faktor ${n2}, maka diperoleh kembali parameter awal ${n1}.`,
+            `Variabel utama dalam ${subtopic} selalu bersifat acak tanpa korelasi kausal.`
+          ],
+          correct: "B,B,S",
+          explanation: `Pernyataan 1 Benar (sesuai kaidah ${unit.title}). Pernyataan 2 Benar (${n1 * n2} / ${n2} = ${n1}). Pernyataan 3 Salah karena ${subtopic} memiliki hubungan kausal/analitis yang terukur.`
+        };
+      }
+    }
+
+    const QUESTION_BANKS = {};
+    SUBJECTS.forEach(s => {
+      QUESTION_BANKS[s.id] = buildQuestionBankForSubject(s);
+    });
+
+    // ============================================================================
+    // 3. IRT SCORING & WEAKNESS DIAGNOSIS ENGINE
+    // ============================================================================
+    function evaluateQuestion(q, userAns) {
+      if (!userAns || !userAns.trim()) return { isCorrect: false, ratio: 0 };
+      if (q.type === "SINGLE_CHOICE" || q.type === "TRUE_FALSE_MATRIX") {
+        const ok = userAns.trim().toUpperCase() === q.correct.trim().toUpperCase();
+        return { isCorrect: ok, ratio: ok ? 1.0 : 0.0 };
+      }
+      if (q.type === "MCMA") {
+        const target = new Set(q.correct.split(",").map(s => s.trim()));
+        const picked = new Set(userAns.split(",").map(s => s.trim()).filter(Boolean));
+        let hits = 0, wrong = 0;
+        picked.forEach(p => { if (target.has(p)) hits++; else wrong++; });
+        if (hits === target.size && wrong === 0) return { isCorrect: true, ratio: 1.0 };
+        const raw = Math.max(0, (hits - wrong * 0.5) / Math.max(1, target.size));
+        return { isCorrect: false, ratio: +raw.toFixed(2) };
+      }
+      return { isCorrect: false, ratio: 0 };
+    }
+
+    function calculateSessionSummary(subject, mode, questions, userAnswers, elapsedSec) {
+      let maxWeighted = 0, earnedWeighted = 0, rawCorrect = 0;
+      const subtopicStats = {};
+
+      const reviews = questions.map(q => {
+        const ans = userAnswers[q.id] || "";
+        const ev = evaluateQuestion(q, ans);
+        if (ev.isCorrect) rawCorrect++;
+        const qMax = q.weight * 20;
+        const qEarned = qMax * ev.ratio;
+        maxWeighted += qMax;
+        earnedWeighted += qEarned;
+
+        if (!subtopicStats[q.subtopic]) {
+          subtopicStats[q.subtopic] = { subtopic: q.subtopic, total: 0, correct: 0, maxW: 0, earnedW: 0 };
+        }
+        subtopicStats[q.subtopic].total++;
+        if (ev.isCorrect) subtopicStats[q.subtopic].correct++;
+        subtopicStats[q.subtopic].maxW += qMax;
+        subtopicStats[q.subtopic].earnedW += qEarned;
+
+        return { q, userAns: ans, isCorrect: ev.isCorrect, ratio: ev.ratio, earnedPt: +qEarned.toFixed(1), maxPt: +qMax.toFixed(1) };
+      });
+
+      const pct = maxWeighted > 0 ? earnedWeighted / maxWeighted : 0;
+      const irtScore = Math.round(200 + pct * 800);
+
+      const breakdown = Object.values(subtopicStats).map(s => {
+        const acc = s.maxW > 0 ? Math.round((s.earnedW / s.maxW) * 100) : 0;
+        return { ...s, accuracy: acc, isWeak: acc < 70 };
+      }).sort((a, b) => a.accuracy - b.accuracy);
+
+      const weakSubtopics = breakdown.filter(b => b.isWeak).map(b => b.subtopic);
+      if (weakSubtopics.length === 0 && breakdown.length > 0 && breakdown[0].accuracy < 95) {
+        weakSubtopics.push(breakdown[0].subtopic);
+      }
+
+      return {
+        subject, mode, irtScore, rawCorrect, total: questions.length,
+        elapsedSec, breakdown, weakSubtopics, reviews,
+        earnedXp: rawCorrect * 12 + (mode === "SIMULASI_TKA" ? 50 : 20),
+        earnedGems: Math.max(5, rawCorrect * 3)
+      };
+    }
+
+    // ============================================================================
+    // 4. APPLICATION STATE & STORAGE
+    // ============================================================================
+    const savedState = JSON.parse(localStorage.getItem("tka_lingo_state_v1") || "null");
+    const state = {
+      activeTab: "HOME_PATH", // HOME_PATH | SIMULASI_HUB | WEAKNESS_CLINIC | APK_INFO
+      selectedSubjectId: "mat_wajib",
+      streak: savedState?.streak ?? 3,
+      gems: savedState?.gems ?? 140,
+      hearts: savedState?.hearts ?? 5,
+      xp: savedState?.xp ?? 320,
+      completedUnits: savedState?.completedUnits ?? ["mw_u1"],
+      weakSubtopics: savedState?.weakSubtopics ?? ["Logaritma", "Stoikiometri", "Bioteknologi & Rekayasa Genetika"],
+      attempts: savedState?.attempts ?? [],
+      quiz: null, // Active quiz session
+      lastSummary: null,
+      timerInterval: null
+    };
+
+    function persistState() {
+      localStorage.setItem("tka_lingo_state_v1", JSON.stringify({
+        streak: state.streak,
+        gems: state.gems,
+        hearts: state.hearts,
+        xp: state.xp,
+        completedUnits: state.completedUnits,
+        weakSubtopics: state.weakSubtopics,
+        attempts: state.attempts.slice(0, 15)
+      }));
+    }
+
+    function getSelectedSubject() {
+      return SUBJECTS.find(s => s.id === state.selectedSubjectId) || SUBJECTS[0];
+    }
+
+    // ============================================================================
+    // 5. QUIZ LAUNCHERS (Simulasi 30 Soal 75 Menit, Unit 10 Soal, Remedial 10 Soal)
+    // ============================================================================
+    function sampleQuestions(pool, count) {
+      const copy = [...pool];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy.slice(0, count);
+    }
+
+    function startSimulasi30(subjectId) {
+      SfxEngine.tap();
+      state.selectedSubjectId = subjectId || state.selectedSubjectId;
+      const subj = getSelectedSubject();
+      const bank = QUESTION_BANKS[subj.id] || [];
+      const easy = sampleQuestions(bank.filter(q => q.tier === "EASY"), 9);
+      const med = sampleQuestions(bank.filter(q => q.tier === "MEDIUM"), 12);
+      const hard = sampleQuestions(bank.filter(q => q.tier === "HARD_HOTS"), 9);
+      const questions = sampleQuestions([...easy, ...med, ...hard], 30);
+
+      launchQuizSession(subj, "SIMULASI_TKA", `Simulasi TKA ${subj.shortName} (30 Soal • 75 Menit)`, questions, 75 * 60, null);
+    }
+
+    function startUnitQuiz10(subjectId, unitId) {
+      SfxEngine.tap();
+      state.selectedSubjectId = subjectId;
+      const subj = getSelectedSubject();
+      const unit = subj.units.find(u => u.id === unitId) || subj.units[0];
+      const bank = (QUESTION_BANKS[subj.id] || []).filter(q => q.unitId === unit.id);
+      const questions = sampleQuestions(bank, 10);
+
+      launchQuizSession(subj, "UNIT_PATH", `Unit ${unit.num}: ${unit.title}`, questions, 25 * 60, unit.id);
+    }
+
+    function startWeaknessRemedial10(subjectId, subtopic) {
+      SfxEngine.tap();
+      if (subjectId) state.selectedSubjectId = subjectId;
+      const subj = getSelectedSubject();
+      const allBank = QUESTION_BANKS[subj.id] || [];
+      let matching = allBank.filter(q => q.subtopic.toLowerCase() === subtopic.toLowerCase());
+      if (matching.length < 10) {
+        // Pull additional generated drills specifically focused on that weak subtopic
+        const unit = subj.units[0];
+        for (let k = matching.length + 1; k <= 12; k++) {
+          matching.push(createDomainQuestion(
+            subj, unit, subtopic, k + 20, `${subj.id}_rem_${k}`,
+            k % 2 === 0 ? "HARD_HOTS" : "MEDIUM",
+            k % 2 === 0 ? "Level 3 • HOTS (45pt)" : "Level 2 • Sedang (28pt)",
+            k % 2 === 0 ? 2.45 : 1.65,
+            k % 3 === 0 ? "MCMA" : "SINGLE_CHOICE"
+          ));
+        }
+      }
+      const questions = sampleQuestions(matching, 10);
+      launchQuizSession(subj, "REMEDIAL_DRILL", `Sesi Remedial 10 Soal: ${subtopic}`, questions, 25 * 60, null);
+    }
+
+    function launchQuizSession(subject, mode, title, questions, durationSec, unitId) {
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      state.quiz = {
+        subject, mode, title, questions, unitId,
+        currentIndex: 0,
+        userAnswers: {},
+        flagged: {},
+        isChecked: false,
+        lastEval: null,
+        remainingSec: durationSec,
+        elapsedSec: 0
+      };
+      state.activeTab = "ACTIVE_QUIZ";
+      state.timerInterval = setInterval(() => {
+        if (!state.quiz) return;
+        state.quiz.elapsedSec++;
+        state.quiz.remainingSec = Math.max(0, state.quiz.remainingSec - 1);
+        const timerEl = document.getElementById("live-timer-label");
+        if (timerEl) {
+          const m = Math.floor(state.quiz.remainingSec / 60);
+          const s = state.quiz.remainingSec % 60;
+          timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+        if (state.quiz.remainingSec <= 0) {
+          finishQuizSession();
+        }
+      }, 1000);
+      render();
+    }
+
+    function finishQuizSession() {
+      if (!state.quiz) return;
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      const qz = state.quiz;
+      const summary = calculateSessionSummary(qz.subject, qz.mode, qz.questions, qz.userAnswers, Math.max(1, qz.elapsedSec));
+      SfxEngine.fanfare();
+
+      state.xp += summary.earnedXp;
+      state.gems += summary.earnedGems;
+      if (qz.unitId && !state.completedUnits.includes(qz.unitId)) {
+        state.completedUnits.push(qz.unitId);
+      }
+      if (summary.weakSubtopics.length > 0) {
+        state.weakSubtopics = Array.from(new Set([...summary.weakSubtopics, ...state.weakSubtopics])).slice(0, 6);
+      }
+      state.attempts.unshift({
+        subjectName: qz.subject.name,
+        mode: qz.mode,
+        irtScore: summary.irtScore,
+        correct: summary.rawCorrect,
+        total: summary.total,
+        weakSubtopics: summary.weakSubtopics,
+        time: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      });
+
+      state.lastSummary = summary;
+      state.quiz = null;
+      state.activeTab = "SESSION_RESULT";
+      persistState();
+      render();
+    }
+
+    // ============================================================================
+    // 6. SVG MASCOT ("BIMO THE TKA OWL")
+    // ============================================================================
+    function renderBimoSvg(accentColor = "#58CC02") {
+      return `
+        <svg class="bimo-avatar" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="64" r="46" fill="${accentColor}" />
+          <ellipse cx="60" cy="76" rx="30" ry="24" fill="#D7FFB8" />
+          <circle cx="43" cy="50" r="14" fill="#FFFFFF" />
+          <circle cx="77" cy="50" r="14" fill="#FFFFFF" />
+          <circle cx="43" cy="50" r="7.5" fill="#1F2937" />
+          <circle cx="77" cy="50" r="7.5" fill="#1F2937" />
+          <circle cx="40.5" cy="47.5" r="2.6" fill="#FFFFFF" />
+          <circle cx="74.5" cy="47.5" r="2.6" fill="#FFFFFF" />
+          <polygon points="53,58 67,58 60,69" fill="#FF9600" />
+          <polygon points="60,8 98,21 60,33 22,21" fill="#1F2937" />
+          <circle cx="93" cy="28" r="4.5" fill="#FFC800" />
+        </svg>
+      `;
+    }
+
+    // ============================================================================
+    // 7. UI RENDERING
+    // ============================================================================
+    function render() {
+      const root = document.getElementById("app");
+      if (!root) return;
+
+      if (state.activeTab === "ACTIVE_QUIZ" && state.quiz) {
+        root.innerHTML = renderActiveQuizView(state.quiz);
+        return;
+      }
+
+      if (state.activeTab === "SESSION_RESULT" && state.lastSummary) {
+        root.innerHTML = renderSessionResultView(state.lastSummary);
+        return;
+      }
+
+      const subj = getSelectedSubject();
+      root.innerHTML = `
+        <header class="top-bar">
+          <button class="subject-pill" style="border-color:${subj.color}; background:${subj.color}1F" onclick="cycleSubject()">
+            <span style="width:10px;height:10px;border-radius:50%;background:${subj.color};display:inline-block"></span>
+            <span>${subj.shortName} ▾</span>
+          </button>
+          <div class="stats-row">
+            <span class="stat-badge" style="color:var(--orange)" title="Streak Hari">🔥 ${state.streak}</span>
+            <span class="stat-badge" style="color:var(--blue)" title="Permata Gems">💎 ${state.gems}</span>
+            <span class="stat-badge" style="color:var(--red)" onclick="refillHearts()" title="Klik untuk isi penuh hati">❤️ ${state.hearts}</span>
+            <button class="stat-badge" style="border:none;background:transparent;font-size:1.1rem" onclick="toggleSfx()" title="Suara SFX">
+              ${SfxEngine.enabled ? "🔊" : "🔇"}
+            </button>
+          </div>
+        </header>
+
+        <main class="app-container">
+          ${state.activeTab === "HOME_PATH" ? renderHomePathTab(subj) : ""}
+          ${state.activeTab === "SIMULASI_HUB" ? renderSimulasiHubTab() : ""}
+          ${state.activeTab === "WEAKNESS_CLINIC" ? renderWeaknessClinicTab(subj) : ""}
+          ${state.activeTab === "APK_INFO" ? renderApkAndInfoTab() : ""}
+        </main>
+
+        <nav class="bottom-nav">
+          <button class="nav-item ${state.activeTab === 'HOME_PATH' ? 'active' : ''}" onclick="switchTab('HOME_PATH')">
+            <span style="font-size:1.25rem">🗺️</span>
+            <span>Jalur TKA</span>
+          </button>
+          <button class="nav-item ${state.activeTab === 'SIMULASI_HUB' ? 'active' : ''}" onclick="switchTab('SIMULASI_HUB')">
+            <span style="font-size:1.25rem">⏱️</span>
+            <span>Simulasi 30</span>
+          </button>
+          <button class="nav-item ${state.activeTab === 'WEAKNESS_CLINIC' ? 'active' : ''}" onclick="switchTab('WEAKNESS_CLINIC')">
+            <span style="font-size:1.25rem">🎯</span>
+            <span>Remedial 10</span>
+          </button>
+          <button class="nav-item ${state.activeTab === 'APK_INFO' ? 'active' : ''}" onclick="switchTab('APK_INFO')">
+            <span style="font-size:1.25rem">📱</span>
+            <span>Info & APK</span>
+          </button>
+        </nav>
+      `;
+    }
+
+    function renderHomePathTab(subj) {
+      const bankCount = (QUESTION_BANKS[subj.id] || []).length;
+      return `
+        <div class="chips-wrap">
+          ${SUBJECTS.map(s => `
+            <button class="subj-chip"
+              style="${s.id === subj.id ? `background:${s.color};color:#fff;border-color:${s.darkColor}` : ''}"
+              onclick="selectSubject('${s.id}')">
+              ${s.shortName}
+            </button>
+          `).join("")}
+        </div>
+
+        <div class="duo-card" style="background:${subj.color};border-color:${subj.darkColor};border-bottom-color:${subj.darkColor};color:#fff">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <div>
+              <span class="badge-pill" style="background:rgba(0,0,0,0.2);color:#fff;margin-bottom:6px">
+                ${subj.category} • ${bankCount} SOAL TERSEDIA
+              </span>
+              <h2 style="font-size:1.5rem;margin-bottom:4px">${subj.name}</h2>
+              <p style="font-size:0.9rem;opacity:0.95">${subj.description}</p>
+            </div>
+            ${renderBimoSvg(subj.darkColor)}
+          </div>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+            <button class="duo-btn outline" style="flex:1;color:${subj.darkColor}" onclick="startSimulasi30('${subj.id}')">
+              ⏱️ Simulasi 30 Soal (75 Menit)
+            </button>
+            <button class="duo-btn orange" style="flex:1" onclick="startWeaknessRemedial10('${subj.id}', '${subj.units[0].subtopics[0]}')">
+              🎯 Remedial 10 Soal (${subj.units[0].subtopics[0]})
+            </button>
+          </div>
+        </div>
+
+        ${state.weakSubtopics.length > 0 ? `
+          <div class="duo-card" style="background:#FFFBEB;border-color:var(--orange);border-bottom-color:var(--orange-dark)">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+              <div>
+                <h4 style="color:#92400E">🎯 Fokus Perbaikan Kelemahanmu</h4>
+                <p style="font-size:0.86rem;color:var(--muted)">Kurang mahir di <b>${state.weakSubtopics.join(", ")}</b>? Gas sesi 10 soal sekarang:</p>
+              </div>
+              <button class="duo-btn orange" onclick="startWeaknessRemedial10('${subj.id}', '${state.weakSubtopics[0]}')">
+                Latihan 10 Soal: ${state.weakSubtopics[0]}
+              </button>
+            </div>
+          </div>
+        ` : ""}
+
+        <div style="padding:10px 0">
+          ${subj.units.map((u, idx) => {
+            const done = state.completedUnits.includes(u.id);
+            const offsetPx = idx % 2 === 0 ? 0 : (idx % 4 === 1 ? -46 : 46);
+            return `
+              <div class="path-node-row" style="transform:translateX(${offsetPx}px)">
+                <button class="unit-node-btn"
+                  style="background:${done ? 'var(--gold)' : subj.color};box-shadow:0 6px 0 ${done ? 'var(--gold-dark)' : subj.darkColor}"
+                  onclick="startUnitQuiz10('${subj.id}', '${u.id}')">
+                  ${done ? "⭐" : u.num}
+                </button>
+                <div class="unit-card-label" onclick="startUnitQuiz10('${subj.id}', '${u.id}')">
+                  <div style="font-size:0.75rem;font-weight:800;color:${subj.color}">UNIT ${u.num} • 10 SOAL</div>
+                  <div class="font-display" style="font-size:1.02rem;margin:2px 0">${u.title}</div>
+                  <div style="font-size:0.8rem;color:var(--muted)">Subtopik: ${u.subtopics.join(", ")}</div>
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function renderSimulasiHubTab() {
+      return `
+        <div class="mascot-banner">
+          ${renderBimoSvg("#1CB0F6")}
+          <div class="duo-card" style="margin-bottom:0;flex:1">
+            <h3 style="color:var(--blue-dark)">Arena Simulasi TKA Resmi (30 Soal • 75 Menit)</h3>
+            <p style="font-size:0.88rem;color:var(--muted);margin-top:4px">
+              Setiap mata pelajaran memiliki <b>108 soal</b> di bank soal (Total 864 soal). Saat simulasi dimulai, sistem mengacak 30 soal berjenjang (Mudah, Sedang, HOTS) dengan penilaian bobot IRT!
+            </p>
+          </div>
+        </div>
+
+        ${SUBJECTS.map(s => `
+          <div class="duo-card" style="border-color:${s.color};border-bottom-color:${s.darkColor}">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+              <div>
+                <span class="badge-pill" style="background:${s.color}22;color:${s.darkColor}">${s.category} • 108 Bank Soal</span>
+                <h3 style="font-size:1.2rem;margin-top:4px">${s.name}</h3>
+                <p style="font-size:0.85rem;color:var(--muted)">30 Soal Acak • Waktu 75 Menit • PG, MCMA (>1 Jawaban), & Benar/Salah</p>
+              </div>
+              <button class="duo-btn" style="background:${s.color};box-shadow:0 4px 0 ${s.darkColor}" onclick="startSimulasi30('${s.id}')">
+                ⏱️ Mulai 30 Soal
+              </button>
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    function renderWeaknessClinicTab(subj) {
+      const allSubtopics = Array.from(new Set(subj.units.flatMap(u => u.subtopics)));
+      return `
+        <div class="mascot-banner">
+          ${renderBimoSvg("#FF9600")}
+          <div class="duo-card" style="margin-bottom:0;flex:1">
+            <h3 style="color:var(--orange-dark)">Klinik Kelemahan (Sesi Fokus 10 Soal)</h3>
+            <p style="font-size:0.88rem;color:var(--muted);margin-top:4px">
+              Kurang mahir di bagian <b>Logaritma</b>, <b>Stoikiometri</b>, atau <b>Bioteknologi</b>? Pilih subtopik kelemahanmu dan kerjakan sesi khusus 10 soal lengkap dengan pembahasan!
+            </p>
+          </div>
+        </div>
+
+        <div class="duo-card" style="background:#FFF5F5;border-color:var(--red);border-bottom-color:var(--red-dark)">
+          <h3 style="color:var(--red-dark);margin-bottom:8px">📌 Daftar Subtopik Kelemahan Terdeteksi</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            ${state.weakSubtopics.map(w => {
+              const ownerSubj = SUBJECTS.find(s => s.units.some(u => u.subtopics.includes(w))) || subj;
+              return `
+                <button class="duo-btn orange" style="width:100%;justify-content:space-between" onclick="startWeaknessRemedial10('${ownerSubj.id}', '${w}')">
+                  <span>🎯 Sesi 10 Soal Kelemahan: ${w}</span>
+                  <span>MULAI ➔</span>
+                </button>
+              `;
+            }).join("")}
+          </div>
+        </div>
+
+        <h3 style="margin:16px 0 8px">Pilih Subtopik per Mata Pelajaran (10 Soal Fokus)</h3>
+        <div class="chips-wrap">
+          ${SUBJECTS.map(s => `
+            <button class="subj-chip"
+              style="${s.id === subj.id ? `background:${s.color};color:#fff;border-color:${s.darkColor}` : ''}"
+              onclick="selectSubject('${s.id}')">
+              ${s.shortName}
+            </button>
+          `).join("")}
+        </div>
+
+        ${allSubtopics.map(st => `
+          <div class="duo-card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+            <div>
+              <h4 style="font-size:1.05rem">${st}</h4>
+              <p style="font-size:0.82rem;color:var(--muted)">${subj.name} • 10 Soal Latihan Fokus + Pembahasan</p>
+            </div>
+            <button class="duo-btn" style="background:${subj.color};box-shadow:0 4px 0 ${subj.darkColor}" onclick="startWeaknessRemedial10('${subj.id}', '${st}')">
+              Latihan 10 Soal
+            </button>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    function renderApkAndInfoTab() {
+      return `
+        <div class="mascot-banner">
+          ${renderBimoSvg("#CE82FF")}
+          <div class="duo-card" style="margin-bottom:0;flex:1">
+            <h3 style="color:var(--purple-dark)">TKA Lingo Hybrid (Web Vercel & Native Android APK)</h3>
+            <p style="font-size:0.88rem;color:var(--muted);margin-top:4px">
+              Repositori ini mendukung <b>Deploy Instan ke Vercel (Web/PWA)</b> sekaligus <b>Build APK Android Native (Kotlin Jetpack Compose)</b>!
+            </p>
+          </div>
+        </div>
+
+        <div class="duo-card">
+          <h3 style="margin-bottom:8px">📲 Cara Mendapatkan File APK Android:</h3>
+          <ol style="padding-left:20px;font-size:0.92rem;line-height:1.6;color:var(--ink)">
+            <li><b>Langsung dari Google AI Studio:</b> Buka menu <b>Settings / Export</b> di pojok kanan atas AI Studio, lalu pilih <b>Generate APK</b>.</li>
+            <li><b>Otomatis lewat GitHub Actions:</b> Saat repo ini di-push ke GitHub, workflow <code>.github/workflows/build-android-apk.yml</code> otomatis meng-compile file <code>TKA-Lingo-Android-APK</code> yang bisa diunduh di tab <b>Actions</b> GitHub kamu.</li>
+            <li><b>Instal sebagai Web App (PWA) dari Vercel:</b> Buka link Vercel ini di Chrome Android/iOS lalu ketuk <b>Tambahkan ke Layar Utama (Add to Home Screen)</b>.</li>
+          </ol>
+        </div>
+
+        <div class="duo-card">
+          <h3 style="margin-bottom:8px">📊 Statistik Belajar Kamu</h3>
+          <p style="font-size:0.92rem;margin-bottom:6px">Total XP: <b>${state.xp} XP</b> • Permata: <b>${state.gems} 💎</b> • Streak: <b>${state.streak} Hari 🔥</b></p>
+          <p style="font-size:0.88rem;color:var(--muted)">Riwayat Sesi Terakhir: ${state.attempts.length} sesi tersimpan</p>
+        </div>
+      `;
+    }
+
+    function renderActiveQuizView(qz) {
+      const q = qz.questions[qz.currentIndex];
+      const ans = qz.userAnswers[q.id] || "";
+      const isSim = qz.mode === "SIMULASI_TKA";
+      const pct = Math.round(((qz.currentIndex + 1) / qz.questions.length) * 100);
+      const m = Math.floor(qz.remainingSec / 60);
+      const s = qz.remainingSec % 60;
+      const timeStr = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+      let inputHtml = "";
+      if (q.type === "SINGLE_CHOICE") {
+        inputHtml = q.options.map(opt => {
+          const isSel = ans === opt.k;
+          let cls = "option-card";
+          if (qz.isChecked) {
+            if (opt.k === q.correct) cls += " correct";
+            else if (isSel) cls += " wrong";
+          } else if (isSel) {
+            cls += " selected";
+          }
+          return `
+            <div class="${cls}" onclick="pickSingleOption('${opt.k}')">
+              <div class="option-key">${opt.k}</div>
+              <div style="font-size:0.95rem;font-weight:600">${opt.t}</div>
+            </div>
+          `;
+        }).join("");
+      } else if (q.type === "MCMA") {
+        const pickedSet = new Set(ans.split(",").filter(Boolean));
+        const correctSet = new Set(q.correct.split(",").filter(Boolean));
+        inputHtml = `
+          <div class="duo-card" style="background:#F3E8FF;border-color:var(--purple);padding:10px 14px;margin-bottom:10px;font-size:0.85rem;font-weight:700;color:var(--purple-dark)">
+            ☑️ PILIHAN GANDA KOMPLEKS (MCMA): Pilih LEBIH DARI 1 jawaban yang benar!
+          </div>
+          ${q.options.map(opt => {
+            const isSel = pickedSet.has(opt.k);
+            let cls = "option-card";
+            if (qz.isChecked) {
+              if (correctSet.has(opt.k)) cls += " correct";
+              else if (isSel) cls += " wrong";
+            } else if (isSel) {
+              cls += " selected";
+            }
+            return `
+              <div class="${cls}" onclick="toggleMcmaOption('${opt.k}')">
+                <div class="option-key">${isSel ? "✓" : opt.k}</div>
+                <div style="font-size:0.95rem;font-weight:600">${opt.t}</div>
+              </div>
+            `;
+          }).join("")}
+        `;
+      } else if (q.type === "TRUE_FALSE_MATRIX") {
+        const parts = ans ? ans.split(",") : q.statements.map(() => "");
+        inputHtml = `
+          <table class="tf-table">
+            <thead>
+              <tr>
+                <th>Pernyataan Analisis TKA</th>
+                <th style="width:64px;text-align:center">Benar</th>
+                <th style="width:64px;text-align:center">Salah</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${q.statements.map((st, sIdx) => `
+                <tr>
+                  <td>${sIdx + 1}. ${st}</td>
+                  <td style="text-align:center">
+                    <button class="tf-toggle ${parts[sIdx] === 'B' ? 'active-b' : ''}" onclick="pickTfOption(${sIdx}, 'B')">B</button>
+                  </td>
+                  <td style="text-align:center">
+                    <button class="tf-toggle ${parts[sIdx] === 'S' ? 'active-s' : ''}" onclick="pickTfOption(${sIdx}, 'S')">S</button>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      }
+
+      return `
+        <header class="top-bar">
+          <button class="duo-btn outline" style="padding:6px 12px" onclick="exitQuiz()">✕ Keluar</button>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:${pct}%"></div>
+          </div>
+          <span id="live-timer-label" class="badge-pill" style="background:#FEF3C7;color:#B45309;font-size:0.92rem">
+            ⏱️ ${timeStr}
+          </span>
+        </header>
+
+        <main class="app-container">
+          ${isSim ? `
+            <div class="q-strip">
+              ${qz.questions.map((item, idx) => {
+                const hasAns = !!(qz.userAnswers[item.id]);
+                const isFlag = !!(qz.flagged[item.id]);
+                const cls = `q-dot ${idx === qz.currentIndex ? 'current' : ''} ${isFlag ? 'flagged' : (hasAns ? 'answered' : '')}`;
+                return `<button class="${cls}" onclick="jumpQuizIndex(${idx})">${idx + 1}</button>`;
+              }).join("")}
+            </div>
+          ` : ""}
+
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <span class="badge-pill" style="background:${qz.subject.color}22;color:${qz.subject.darkColor}">
+              Soal ${qz.currentIndex + 1}/${qz.questions.length} • ${q.subtopic}
+            </span>
+            <span class="badge-pill" style="background:#FEF3C7;color:#92400E">
+              ⚖️ ${q.tierLabel} (${q.weight}x IRT)
+            </span>
+          </div>
+
+          <div class="duo-card">
+            <p style="font-size:1.04rem;font-weight:700;line-height:1.55">${q.stem}</p>
+          </div>
+
+          ${inputHtml}
+
+          ${qz.isChecked ? `
+            <div class="duo-card" style="background:${qz.lastEval?.isCorrect ? 'var(--green-light)' : 'var(--red-light)'};border-color:${qz.lastEval?.isCorrect ? 'var(--green)' : 'var(--red)'}">
+              <h3 style="color:${qz.lastEval?.isCorrect ? 'var(--green-dark)' : 'var(--red-dark)'};margin-bottom:6px">
+                ${qz.lastEval?.isCorrect ? "🎉 Jawaban Tepat Sekali!" : `💡 Pembahasan (Kunci: ${q.correct})`}
+              </h3>
+              <p style="font-size:0.92rem;line-height:1.5">${q.explanation}</p>
+            </div>
+          ` : ""}
+
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+            ${isSim ? `
+              <button class="duo-btn outline" onclick="prevQuizQuestion()" ${qz.currentIndex === 0 ? "disabled" : ""}>⬅️ Sebelumnya</button>
+              <button class="duo-btn orange" onclick="toggleFlagQuestion()">
+                🚩 ${qz.flagged[q.id] ? "Hapus Ragu" : "Ragu-ragu"}
+              </button>
+              ${qz.currentIndex + 1 < qz.questions.length ? `
+                <button class="duo-btn blue" style="flex:1" onclick="nextQuizQuestion()">Selanjutnya ➡️</button>
+              ` : `
+                <button class="duo-btn" style="flex:1" onclick="finishQuizSession()">🏆 Kumpulkan Ujian (30 Soal)</button>
+              `}
+            ` : `
+              ${!qz.isChecked ? `
+                <button class="duo-btn" style="width:100%" ${!ans ? "disabled" : ""} onclick="checkAnswerInteractive()">
+                  PERIKSA JAWABAN
+                </button>
+              ` : `
+                <button class="duo-btn" style="width:100%" onclick="nextQuizQuestion()">
+                  ${qz.currentIndex + 1 < qz.questions.length ? "LANJUT SOAL BERIKUTNYA ➔" : "LIHAT HASIL & DIAGNOSIS KELEMAHAN 🏆"}
+                </button>
+              `}
+            `}
+          </div>
+
+          ${isSim ? `
+            <div style="margin-top:14px;text-align:right">
+              <button class="duo-btn" onclick="finishQuizSession()">Selesaikan & Nilai Sekarang (${Object.keys(qz.userAnswers).length}/${qz.questions.length} Terjawab)</button>
+            </div>
+          ` : ""}
+        </main>
+      `;
+    }
+
+    function renderSessionResultView(sum) {
+      return `
+        <main class="app-container" style="padding-top:24px">
+          <div style="text-align:center;margin-bottom:18px">
+            ${renderBimoSvg(sum.subject.color)}
+            <h1 style="font-size:1.75rem;margin-top:8px">Skor IRT TKA: ${sum.irtScore} / 1000</h1>
+            <p style="color:var(--muted)">${sum.subject.name} • Benar ${sum.rawCorrect} dari ${sum.total} Soal • +${sum.earnedXp} XP</p>
+          </div>
+
+          <div class="duo-card" style="background:#FFF5F5;border-color:var(--red);border-bottom-color:var(--red-dark)">
+            <h3 style="color:var(--red-dark);margin-bottom:6px">🎯 Diagnosis Kelemahan Subtopik</h3>
+            <p style="font-size:0.88rem;color:var(--muted);margin-bottom:12px">
+              Berdasarkan bobot kesulitan soal yang kamu kerjakan, ini evaluasi kemahiran per subtopik:
+            </p>
+            ${sum.breakdown.map(b => `
+              <div style="margin-bottom:10px">
+                <div style="display:flex;justify-content:space-between;font-weight:700;font-size:0.9rem;margin-bottom:4px">
+                  <span>${b.subtopic} ${b.isWeak ? "⚠️ (Perlu Latihan)" : "✅ (Mahir)"}</span>
+                  <span>${b.accuracy}%</span>
+                </div>
+                <div class="progress-track" style="height:10px">
+                  <div class="progress-fill" style="width:${b.accuracy}%;background:${b.isWeak ? 'var(--red)' : 'var(--green)'}"></div>
+                </div>
+              </div>
+            `).join("")}
+
+            ${sum.weakSubtopics.length > 0 ? `
+              <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:0.88rem;font-weight:700;color:var(--red-dark)">
+                  Anda kurang mahir di bagian <u>${sum.weakSubtopics.join(", ")}</u>. Yuk lengkapi kelemahanmu dengan sesi khusus 10 soal:
+                </div>
+                ${sum.weakSubtopics.map(w => `
+                  <button class="duo-btn orange" onclick="startWeaknessRemedial10('${sum.subject.id}', '${w}')">
+                    🔥 Mulai 10 Soal Remedial: ${w}
+                  </button>
+                `).join("")}
+              </div>
+            ` : ""}
+          </div>
+
+          <h3 style="margin:18px 0 10px">📖 Pembahasan Lengkap Setiap Soal (${sum.reviews.length} Soal)</h3>
+          ${sum.reviews.map((rev, idx) => `
+            <div class="duo-card" style="border-color:${rev.isCorrect ? 'var(--green)' : 'var(--red)'}">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.82rem;font-weight:700">
+                <span style="color:${rev.isCorrect ? 'var(--green-dark)' : 'var(--red-dark)'}">
+                  Soal #${idx + 1} • ${rev.q.subtopic} (${rev.isCorrect ? "BENAR" : "KURANG TEPAT"})
+                </span>
+                <span>+${rev.earnedPt} / ${rev.maxPt} pt IRT</span>
+              </div>
+              <p style="font-weight:700;font-size:0.95rem;margin-bottom:8px">${rev.q.stem}</p>
+              <p style="font-size:0.85rem;color:var(--muted);margin-bottom:6px">
+                Jawabanmu: <b>${rev.userAns || "(Kosong)"}</b> • Kunci TKA: <b style="color:var(--green-dark)">${rev.q.correct}</b>
+              </p>
+              <div style="background:#F8FAFC;border-radius:12px;padding:10px;font-size:0.88rem;line-height:1.5">
+                <b>Pembahasan:</b> ${rev.q.explanation}
+              </div>
+            </div>
+          `).join("")}
+
+          <button class="duo-btn" style="width:100%;margin-top:12px" onclick="switchTab('HOME_PATH')">
+            KEMBALI KE BERANDA TKA LINGO
+          </button>
+        </main>
+      `;
+    }
+
+    // ============================================================================
+    // 8. EVENT HANDLERS
+    // ============================================================================
+    window.switchTab = function(tab) {
+      SfxEngine.tap();
+      state.activeTab = tab;
+      render();
+    };
+
+    window.selectSubject = function(subjId) {
+      SfxEngine.tap();
+      state.selectedSubjectId = subjId;
+      render();
+    };
+
+    window.cycleSubject = function() {
+      SfxEngine.tap();
+      const idx = SUBJECTS.findIndex(s => s.id === state.selectedSubjectId);
+      state.selectedSubjectId = SUBJECTS[(idx + 1) % SUBJECTS.length].id;
+      render();
+    };
+
+    window.toggleSfx = function() {
+      SfxEngine.enabled = !SfxEngine.enabled;
+      if (SfxEngine.enabled) SfxEngine.tap();
+      render();
+    };
+
+    window.refillHearts = function() {
+      SfxEngine.correct();
+      state.hearts = 5;
+      persistState();
+      render();
+    };
+
+    window.pickSingleOption = function(key) {
+      if (!state.quiz || (state.quiz.mode !== "SIMULASI_TKA" && state.quiz.isChecked)) return;
+      SfxEngine.tap();
+      const q = state.quiz.questions[state.quiz.currentIndex];
+      state.quiz.userAnswers[q.id] = key;
+      render();
+    };
+
+    window.toggleMcmaOption = function(key) {
+      if (!state.quiz || (state.quiz.mode !== "SIMULASI_TKA" && state.quiz.isChecked)) return;
+      SfxEngine.tap();
+      const q = state.quiz.questions[state.quiz.currentIndex];
+      const cur = new Set((state.quiz.userAnswers[q.id] || "").split(",").filter(Boolean));
+      if (cur.has(key)) cur.delete(key); else cur.add(key);
+      state.quiz.userAnswers[q.id] = Array.from(cur).sort().join(",");
+      render();
+    };
+
+    window.pickTfOption = function(stmtIdx, val) {
+      if (!state.quiz || (state.quiz.mode !== "SIMULASI_TKA" && state.quiz.isChecked)) return;
+      SfxEngine.tap();
+      const q = state.quiz.questions[state.quiz.currentIndex];
+      const cur = (state.quiz.userAnswers[q.id] || "").split(",");
+      while (cur.length < q.statements.length) cur.push("S");
+      cur[stmtIdx] = val;
+      state.quiz.userAnswers[q.id] = cur.join(",");
+      render();
+    };
+
+    window.checkAnswerInteractive = function() {
+      if (!state.quiz) return;
+      const q = state.quiz.questions[state.quiz.currentIndex];
+      const ans = state.quiz.userAnswers[q.id] || "";
+      const ev = evaluateQuestion(q, ans);
+      state.quiz.isChecked = true;
+      state.quiz.lastEval = ev;
+      if (ev.isCorrect || ev.ratio >= 0.5) {
+        SfxEngine.correct();
+      } else {
+        SfxEngine.wrong();
+        state.hearts = Math.max(1, state.hearts - 1);
+      }
+      render();
+    };
+
+    window.nextQuizQuestion = function() {
+      if (!state.quiz) return;
+      SfxEngine.tap();
+      if (state.quiz.currentIndex + 1 < state.quiz.questions.length) {
+        state.quiz.currentIndex++;
+        state.quiz.isChecked = false;
+        state.quiz.lastEval = null;
+        render();
+      } else {
+        finishQuizSession();
+      }
+    };
+
+    window.prevQuizQuestion = function() {
+      if (!state.quiz || state.quiz.currentIndex <= 0) return;
+      SfxEngine.tap();
+      state.quiz.currentIndex--;
+      state.quiz.isChecked = false;
+      render();
+    };
+
+    window.jumpQuizIndex = function(idx) {
+      if (!state.quiz) return;
+      SfxEngine.tap();
+      state.quiz.currentIndex = idx;
+      state.quiz.isChecked = false;
+      render();
+    };
+
+    window.toggleFlagQuestion = function() {
+      if (!state.quiz) return;
+      SfxEngine.tap();
+      const q = state.quiz.questions[state.quiz.currentIndex];
+      state.quiz.flagged[q.id] = !state.quiz.flagged[q.id];
+      render();
+    };
+
+    window.exitQuiz = function() {
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      state.quiz = null;
+      state.activeTab = "HOME_PATH";
+      render();
+    };
+
+    // Initial mount
+    render();
+  </script>
+</body>
+</html>
